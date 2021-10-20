@@ -1,6 +1,7 @@
 package TGN1;
 
 import java.util.Scanner;
+import java.util.InputMismatchException;
 public class Cine {
     public static void main(String[] args){
         int cont = 1;
@@ -28,10 +29,8 @@ public class Cine {
             System.out.println("1- Si\n0- No");
             opcion = scNombre.nextLine();
 
-            try {
-                Integer.parseInt(opcion);
-            }catch (NumberFormatException nro){
-                System.out.println("Error. Ingresar solo numeros. continuar agregando: 1 - Finalizar: 0");
+            while (!Utils.isNumeric(opcion)) {
+                System.out.println("Error. Ingresar sólo números. Continuar agregando: 1 - Finalizar: 0");
                 opcion = scNombre.nextLine();
             }
 
@@ -51,30 +50,38 @@ public class Cine {
 
 
             System.out.println("Ingrese el nombre del espectador Nº: " + cont);
-            espectador.setNombre(scNombre.nextLine());
+            espectador.setNombre(controlPalabras(scNombre.nextLine()));
 
             System.out.println("Edad del espectador: ");
-            edad = scNumero.nextInt();
-            espectador.setEdad(edad);
+
+            if (controlNumerico()) {
+                espectador.setEdad(scNumero.nextInt());
+            } else {
+                System.out.println("ERROR EN EL INGRESO DE DATOS. ¡Ingrese número!");
+                espectador.setEdad(scNumero.nextInt());
+            }
 
             
             System.out.println("Fila: ");
-            fila = scNombre.nextLine();
-            espectador.setFila(fila);
+            espectador.setFila(controlPalabras(scNombre.nextLine()));
 
             System.out.println("Silla: ");
-            silla = scNumero.nextInt();
-            espectador.setSilla(silla);
+
+            if (controlNumerico()) {
+                espectador.setSilla(scNumero.nextInt());
+            }else {
+                System.out.println("ERROR EN EL INGRESO DE DATOS. ¡Ingrese número!");
+                espectador.setSilla(scNumero.nextInt());
+            }
+
             sala1.agregarEspectador(espectador);
 
 
             System.out.println("Continuar agregando: 1 - Finalizar: 0");
             opcion = scNombre.nextLine();
 
-            try {
-                Integer.parseInt(opcion);
-            }catch (NumberFormatException nro){
-                System.out.println("Error. Ingresar solo numeros. continuar agregando: 1 - Finalizar: 0");
+            while (!Utils.isNumeric(opcion)) {
+                System.out.println("Error. Ingresar sólo números. Continuar agregando: 1 - Finalizar: 0");
                 opcion = scNombre.nextLine();
             }
 
@@ -108,10 +115,8 @@ public class Cine {
         System.out.println("1- Si\n0- No");
         opcion = scNombre.nextLine();
 
-        try {
-            Integer.parseInt(opcion);
-        }catch (NumberFormatException nro){
-            System.out.println("Error. Ingresar solo numeros. continuar agregando: 1 - Finalizar: 0");
+        while (!Utils.isNumeric(opcion)) {
+            System.out.println("Error. Ingresar sólo números. Continuar agregando: 1 - Finalizar: 0");
             opcion = scNombre.nextLine();
         }
 
@@ -137,10 +142,8 @@ public class Cine {
         System.out.println("1- Si\n0- No");
         opcion = scNombre.nextLine();
 
-        try {
-            Integer.parseInt(opcion);
-        }catch (NumberFormatException nro){
-            System.out.println("Error. Ingresar solo numeros. continuar agregando: 1 - Finalizar: 0");
+        while (!Utils.isNumeric(opcion)) {
+            System.out.println("Error. Ingresar sólo números. Continuar agregando: 1 - Finalizar: 0");
             opcion = scNombre.nextLine();
         }
 
@@ -162,5 +165,32 @@ public class Cine {
         }
 
     }
+
+    //Controladores
+    //Controlador de palabras/caracteres
+    public static String controlPalabras(String palabra) {
+
+        Scanner scLetras = new Scanner(System.in);
+
+        String palabras;
+
+        while (Utils.isNumeric(palabra)) {
+            System.out.println("ERROR EN EL INGRESO DE DATOS. Ingrese caracteres o palabras.");
+            palabra = scLetras.nextLine();
+        }
+        palabras = palabra;
+
+        return palabras;
+    }
+    //Controlador de Numeros
+    public static boolean controlNumerico() {
+        Scanner scan = new Scanner(System.in);
+        int nro;
+        try {
+            nro = scan.nextInt();
+            return true;
+        } catch (InputMismatchException e) {
+            return false;
+        }    }
 }
 
