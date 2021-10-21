@@ -6,9 +6,8 @@ public class Cine {
     public static void main(String[] args){
         int cont = 1;
         int salaUno = 0;
-        int edad;
-        String fila;
-        int silla;
+        int edad=0;
+        int silla=0;
         String opcion;
 
 
@@ -55,10 +54,10 @@ public class Cine {
             System.out.println("Edad del espectador: ");
 
             if (controlNumerico()) {
-                espectador.setEdad(scNumero.nextInt());
+                espectador.setEdad(edad);
             } else {
                 System.out.println("ERROR EN EL INGRESO DE DATOS. ¡Ingrese número!");
-                espectador.setEdad(scNumero.nextInt());
+                espectador.setEdad(edad);
             }
 
             
@@ -68,10 +67,10 @@ public class Cine {
             System.out.println("Silla: ");
 
             if (controlNumerico()) {
-                espectador.setSilla(scNumero.nextInt());
+                espectador.setSilla(silla);
             }else {
                 System.out.println("ERROR EN EL INGRESO DE DATOS. ¡Ingrese número!");
-                espectador.setSilla(scNumero.nextInt());
+                espectador.setSilla(silla);
             }
 
             sala1.agregarEspectador(espectador);
